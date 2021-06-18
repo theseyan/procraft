@@ -1,0 +1,49 @@
+{
+  "name": "mineservo",
+  "version": "1.0.0",
+  "description": "A full-featured web administration panel for Minecraft servers",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sayanjyotidas/mineservo.git"
+  },
+  "author": "Sayanjyoti Das",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sayanjyotidas/mineservo/issues"
+  },
+  "homepage": "https://github.com/sayanjyotidas/mineservo#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "ejs": "^3.1.6",
+    "ejs-compiled-loader": "^3.1.0",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.2.1",
+    "jsonwebtoken": "^8.5.1",
+    "minecraft-pinger": "^1.0.5",
+    "move-file": "^2.1.0",
+    "mv": "^2.1.1",
+    "mysql2": "^2.2.5",
+    "nan": "^2.14.2",
+    "navigo": "^8.11.1",
+    "node-downloader-helper": "^1.0.18",
+    "nodejslogger": "^1.2.3",
+    "properties-reader": "^2.2.0",
+    "ps-node": "^0.1.6",
+    "request": "^2.88.2",
+    "socket.io": "^4.1.2",
+    "socket.io-client": "^4.1.2",
+    "tail": "^2.2.2",
+    "throttle-debounce": "^3.0.1",
+    "user-agents": "^1.0.683",
+    "zeromq": "^5.2.8"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.14.5",
+    "@babel/preset-env": "^7.14.5",
+    "babel-loader": "^8.2.2"
+  }
+}

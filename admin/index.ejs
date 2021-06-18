@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>procraft</title>
+        <%- include('templates/html-head'); %>
+        <script type="text/javascript">
+            var config={
+                apiUrl: '/api',
+                adminUrl: ''
+            };
+        </script>
+    </head>
+    <body>
+        <div id="LoadScreen" class="loading-screen">
+            <div class="center">
+                <img src="/images/logo-min.png" />
+                <span>Connecting...</span>
+            </div>
+        </div>
+        <div class="fade" id="fade"></div>
+        <%- include('templates/sidebar'); %>
+        <%- include('templates/header'); %>
+        <div class="body" id="app-body"></div>
+        <div class="notification" id="notification">
+            <span id="notification.icon" class="icon fa"></span>
+            <span id="notification.text" class="text"></span>
+            <span id="notification.closeBtn" class="close-btn fa fa-times"></span>
+        </div>
+        <script type="text/javascript" src="/procraft.admin.js"></script>
+    </body>
+</html>

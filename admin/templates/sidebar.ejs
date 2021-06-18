@@ -1,0 +1,13 @@
+<div id="sidebar" class="sidebar">
+    <div class="branding">
+        <img class="logo" src="/images/logo-min.png" />
+        <span class="title">procraft</span>
+    </div>
+
+    <% for(var cat in menus.main) { %>
+        <span class="topic"><%= cat %></span>
+        <% for(var item in menus.main[cat]) { %>
+            <a href="<%= "#" + menus.main[cat][item].route %>" class="item" %>"><span class="<%= menus.main[cat][item].icon %>"></span> <%= menus.main[cat][item].label %></a>
+        <% } %>
+    <% } %>
+</div>

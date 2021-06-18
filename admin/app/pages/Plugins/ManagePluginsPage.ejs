@@ -1,0 +1,28 @@
+<h1 class="title">Manage Plugins</h1>
+
+<p>
+    <span class="fa fa-info-circle"></span> Restart the server for applying changes
+</p>
+<div class="navbar">
+    <a href="/#/plugins/manage/enabled" class="item <%= (type==="enabled") ? "active" : "" %>">
+        <span>Enabled</span>
+    </a>
+    <a href="/#/plugins/manage/disabled" class="item <%= (type==="disabled") ? "active" : "" %>">
+        <span>Disabled</span>
+    </a>
+</div>
+<div class="posts-list">
+    <% plugins[type].forEach(plugin => { %>
+        <div class="post">
+            <span class="title"><%= plugin.name %></span>
+            <div class="right">
+                <% if(type == 'enabled') { %>
+                    <a class="icon" href="/#/plugins/disable/<%= encodeURIComponent(plugin.jar) %>"><span class="fa fa-ban"></span></a>
+                <% }else { %>
+                    <a class="icon" href="/#/plugins/enable/<%= encodeURIComponent(plugin.jar) %>"><span class="fa fa-undo"></span></a>
+                <% } %>
+                <a class="icon delete" href="/#/plugins/delete/<%= encodeURIComponent(plugin.jar) %>"><span class="fa fa-trash"></span></a>
+            </div>
+        </div>
+    <% }); %>
+</div>

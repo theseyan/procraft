@@ -1,0 +1,29 @@
+<h1 class="title"><%= systemStatus.details.name %></h1>
+
+<div class="status-box">
+    <div class="status">
+        <span class="factor">Server</span>
+        <h2 class="<%= systemStatus.process.ready==true?"green":(systemStatus.process.running==true?"yellow":"red") %>"><%= systemStatus.process.ready==true?"online":(systemStatus.process.running==true?"starting":"offline") %></h2>
+    </div>
+    <div class="status">
+        <span class="factor">Players</span>
+        <h2 class="default"><%= systemStatus.process.ready==true ? systemStatus.server.players.online : 0 %>/<%= systemStatus.details.maxPlayers %></h2>
+    </div>
+    <div class="status">
+        <span class="factor">Difficulty</span>
+        <h2 class="default"><%= systemStatus.details.difficulty %></h2>
+    </div>
+    <div class="status">
+        <span class="factor">PvP</span>
+        <h2 class="default"><%= systemStatus.details.pvp %></h2>
+    </div>
+    <div class="status">
+        <span class="factor">Software</span>
+        <h2 class="default"><%= systemStatus.process.ready==true ? systemStatus.server.version.name : "?" %></h2>
+    </div>
+</div>
+<h3>Quick Actions</h3>
+<span id="btn.startServer" class="btn btn-secondary"><span class="fa fa-play"></span> Start Server</span>
+<span id="btn.stopServer" class="btn btn-secondary"><span class="fa fa-stop"></span> Stop Server</span>
+<span id="btn.restartServer" class="btn btn-secondary"><span class="fa fa-sync"></span> Restart Server</span><p></p>
+<span id="btn.killServer" class="btn btn-secondary"><span class="fa fa-skull"></span> Kill Server</span>

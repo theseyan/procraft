@@ -1,0 +1,38 @@
+{
+    "Dashboard": {
+        "index": {
+            "label": "Home",
+            "icon": "fa fa-home",
+            "route": "/"
+        }
+    },
+    "Server": {
+        "commandLine": {
+            "label": "Command Line",
+            "icon": "fa fa-terminal",
+            "route": "/server/cmd"
+        },
+        "controlPanel": {
+            "label": "Control Panel",
+            "icon": "fa fa-tachometer-alt",
+            "route": "/server/control"
+        },
+        "logs": {
+            "label": "Server Log",
+            "icon": "fa fa-stream",
+            "route": "/server/log"
+        }
+    },
+    "Plugins": {
+        "newPlugin": {
+            "label": "Add Plugin",
+            "icon": "fa fa-plus-circle",
+            "route": "/plugins/install"
+        },
+        "managePlugins": {
+            "label": "Manage Plugins",
+            "icon": "fa fa-edit",
+            "route": "/plugins/manage/enabled"
+        }
+    }
+}

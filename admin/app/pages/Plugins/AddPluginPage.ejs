@@ -1,0 +1,15 @@
+<h1 class="title">Add a Plugin</h1>
+<form id="addPlugin.form" enctype="multipart/form-data" method="POST" action="/api/plugins/install" class="form">
+    <span class="label">Plugin JAR URL</span>
+    <input name="url" class="input" placeholder="Enter the plugin's .JAR file URL..." type="text" />
+
+    <p>OR</p>
+
+    <span class="label">Upload a JAR file</span>
+    <input name="jar" class="input" placeholder="Upload a JAR file" type="file" />
+    <br />
+    <p>
+        <span class="fa fa-info-circle"></span> Restart the server for new plugins to be loaded
+    </p>
+    <span id="addPlugin.submit" class="btn btn-primary"><span class="fa fa-download"></span> Install Plugin</span>
+</form>
