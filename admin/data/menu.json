@@ -12,6 +12,11 @@
             "icon": "fa fa-terminal",
             "route": "/server/cmd"
         },
+        "fileManager": {
+            "label": "File Manager",
+            "icon": "fa fa-folder-open",
+            "route": "/filemanager?path=/"
+        },
         "controlPanel": {
             "label": "Control Panel",
             "icon": "fa fa-tachometer-alt",

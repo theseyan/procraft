@@ -1,6 +1,6 @@
 var config = require('../config.json');
 var jwt = require('jsonwebtoken');
-var fs = require('fs');
+var fs = require('fs-extra');
 var path = require('path');
 var db = require('../admin/db');
 var propertiesReader = require('properties-reader');
@@ -21,6 +21,100 @@ module.exports = new function() {
             cb({userId: decoded.id, uname: decoded.sub});
         });
     };
+    
+    this.getDirFiles = (dir) => {
+        return new Promise((resolve, reject) => {
+            var data = [];
+            dir = path.join(config.server.root, dir);
+            fs.readdir(dir, (err, files) => {
+                if(err) {
+                    reject(err);
+                    return;
+                }
+
+                files.forEach((file) => {
+                    var filePath = path.join(dir, file);
+                    var stat = fs.statSync(filePath);
+
+                    data.push(stat.isDirectory() ? {
+                        file: file,
+                        dir: stat.isDirectory()
+                    } : {
+                        file: file
+                    });
+                });
+
+                resolve(data);
+            });
+        });
+    };
+
+    this.deleteFile = (src) => {
+        return new Promise((resolve, reject) => {
+            // Delete image file
+            fs.unlink(path.join(config.server.root, src), (err) => {
+                if(err) {
+                    reject(err);
+                    return;
+                }
+                resolve({});
+            });
+        });
+    };
+
+    this.deleteFolder = (src) => {
+        return new Promise((resolve, reject) => {
+            // Delete image file
+            fs.remove(path.join(config.server.root, src), (err) => {
+                if(err) {
+                    reject(err);
+                    return;
+                }
+                resolve({});
+            });
+        });
+    };
+
+    this.makeDirectory = (src, folder) => {
+        return new Promise((resolve, reject) => {
+            var fullPath = path.join(config.server.root, src, folder);
+            fs.ensureDir(fullPath).then(() => {
+                resolve();
+            }).catch(err => {
+                reject(err);
+            });
+        });
+    };
+
+    this.readFile = (src) => {
+        src = path.join(config.server.root, src);
+        return new Promise((resolve, reject) => {
+            var stat = fs.statSync(src);
+            if(stat.isDirectory() === true) return reject(new Error("Given path is a folder"));
+            fs.readFile(src, {encoding: 'utf-8'}, function(err, data){
+                if (!err) {
+                    resolve(data);
+                } else {
+                    reject(err);
+                }
+            });
+        });
+    };
+
+    this.setFile = (src, content) => {
+        src = path.join(config.server.root, src);
+        return new Promise((resolve, reject) => {
+            var stat = fs.statSync(src);
+            if(stat.isDirectory() === true) return reject(new Error("Given path is a folder"));
+            fs.writeFile(src, content, function(err){
+                if (!err) {
+                    resolve();
+                } else {
+                    reject(err);
+                }
+            });
+        });
+    },
 
     this.getOnlinePlayers = () => {
         return new Promise((resolve, reject) => {
@@ -30,38 +124,6 @@ module.exports = new function() {
                     return;
                 }
                 resolve(JSON.parse(body));
-            });
-        });
-    };
-
-    this.getSystemStatus = (socket) => {
-        return new Promise((resolve, reject) => {
-            var result = {
-                server: {}
-            };
-            var properties = propertiesReader(path.join(config.server.root, 'server.properties'));
-            result.server.maxPlayers = properties.get('max-players');
-            result.server.name = properties.get('motd');
-            result.server.pvp = properties.get('pvp');
-
-            this.getServerStatus().then(status => {
-                result.server.status = status;
-                if(status == 'online') {
-                    this.getOnlinePlayers().then(players => {
-                        result.server.onlinePlayers = players;
-                        result.server.onlinePlayersNum = players.length;
-                        
-                        resolve(result);
-                    }).catch(e => {
-                        this.error(e);
-                        result.server.onlinePlayers = [];
-                        result.server.onlinePlayersNum = '?';
-
-                        resolve(result);
-                    });
-                }else {
-                    resolve(result);
-                }
             });
         });
     };

@@ -1,0 +1,41 @@
+<h1 class="title">File Manager</h1>
+<form id="uploadFileForm" enctype="multipart/form-data" class="add-new-box form">
+    <input name="path" type="hidden" id="fileUploadPath" value="" />
+    <input id="fileUploadInput" style="display: none;" name="files" type="file" multiple="multiple" class="input" placeholder="Select a file to upload..." />
+    <span id="fileUploadBtn" class="btn btn-primary"><span class="fa fa-plus-circle"></span> Upload</span>
+    <span id="newFolderBtn" class="btn btn-primary"><span class="fa fa-folder-plus"></span> Create Folder</span>
+</form>
+<div class="navigation">
+    <span class="item"><a href="/#/filemanager">/</a><span class="fa fa-angle-right"></span></span>
+    <%
+    if(route.endsWith("/")) route = route.substring(0, route.length-1);
+    for(var i=0; i<routes.length; i++) {
+        var fullRoute = "/";
+        for(var j=0; j<=i; j++) fullRoute += routes[j] + "/";
+
+    %>
+    <span class="item"><a href="/#/filemanager?path=<%= encodeURIComponent(fullRoute) %>"><%= routes[i] %></a><span class="fa fa-angle-right"></span></span>
+    <% } %>
+</div>
+
+<div class="posts-list">
+    <% folders.forEach(folder => { %>
+        <div class="post">
+            <span class="icon fa fa-folder"></span>
+            <a href="/#/filemanager?path=<%= encodeURIComponent(route + '/' + folder[0].file) %>" class="title"><%= folder[0].file %></a>
+            <div class="right">
+                <a class="icon delete deleteFolderBtn" href="/#/filemanager/deletefolder/<%= encodeURIComponent(route + '/' + folder[0].file) %>"><span class="fa fa-trash"></span></a>
+            </div>
+        </div>
+    <% }); %>
+    <% files.forEach(file => { %>
+        <div class="post">
+            <span class="icon fa fa-file"></span>
+            <span class="title"><%= file.file %></span>
+            <div class="right">
+                <a class="icon editFileBtn" href="/#/editor?file=<%= encodeURIComponent(route + '/' + file.file) %>"><span class="fa fa-edit"></span></a>
+                <a class="icon delete deleteFileBtn" href="/#/filemanager/deletefile/<%= encodeURIComponent(route + '/' + file.file) %>"><span class="fa fa-trash"></span></a>
+            </div>
+        </div>
+    <% }); %>
+</div>
