@@ -92,7 +92,7 @@ module.exports = new function() {
             });
 
             // Write PID to file
-            fs.writeFileSync('./server.pid', process.pid, {encoding: 'utf-8'});
+            fs.writeFileSync('./server.pid', String(process.pid), {encoding: 'utf-8'});
 
             process.unref();
             mcServer.process.running = true;
