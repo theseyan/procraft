@@ -128,6 +128,22 @@ module.exports = new function() {
         });
     };
 
+    this.chatBroadcast = (message) => {
+        return new Promise((resolve, reject) => {
+            request.post(config.main.severtapApi + '/v1/chat/broadcast', {
+                form: {
+                    message: message
+                }
+            }, (err, res, body) => {
+                if(err) {
+                    reject(err);
+                    return;
+                }
+                resolve();
+            });
+        });
+    };
+
     this.login = (data, cb) => {
 
         db.execute(`SELECT * FROM admin_users WHERE uname = ? AND password = ?`, [data.username, data.password], (err, res) => {

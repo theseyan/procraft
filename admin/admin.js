@@ -1,5 +1,6 @@
 var routes = require('./routes');
 var apiRoutes = require('./api/routes');
+var eventsHook = require('./eventsHook');
 var config = require('../config.json');
 var bodyParser = require('body-parser');
 var express = require('express');
@@ -14,11 +15,17 @@ module.exports = new function() {
     this.launch = () => {
         return new Promise((resolve, reject) => {
             this.app = express();
+            this.eventsHook = express();
+            this.eventsHook.use(bodyParser.json());
+            
             var socketServer = http.createServer(this.app);
             var io = require('socket.io')(socketServer);
 
             // Launch Socket server
             ssModule.init(io);
+
+            // Launch Events Webhook server
+            eventsHook.setup(this.eventsHook);
 
             this.app.use(bodyParser.json());
             this.app.use(bodyParser.urlencoded({
@@ -37,6 +44,7 @@ module.exports = new function() {
             apiRoutes.setup(this.app);
 
             socketServer.listen(config.main.adminPort);
+            this.eventsHook.listen(config.main.eventsHookPort);
             resolve();
         });
     };
